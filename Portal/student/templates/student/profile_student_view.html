@@ -1,0 +1,69 @@
+{% extends 'student/base_bar.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Personal File</title>
+{% endblock title %}
+
+{% block custom_imports %}
+    <link rel="stylesheet" href="{% static 'css/profile_teach_view.css' %}">
+{% endblock custom_imports %}
+
+{% block content %}
+                <!-------------------details--------->
+               <div class="col-10">
+                   <div class="details">
+                    <div class="account_tech">
+                        <h1> Personal File <i class="fas fa-user-circle"></i></a></h1>
+                    </div>
+                    <div class="hrt">
+                        <hr>
+                    </div>
+             <div class="info_tech">
+                    <div class="tech_pic">
+                      <h2>Profile Pic</h2>
+                      <div class="imgg">
+                        <img src="{{ user.profile.student.avatar.url }}" alt="">
+                      </div>
+                    </div>
+
+                <div class="details_tech">
+                     <form>
+                         <div class="block">
+                            <label>Username</label>
+                            <div>  {{user_profile.user}} </div>
+                         </div>
+
+                         <div class="block">
+                            <label > Age </label>
+                            <div>
+                                {{user_profile.age}}
+                            </div>
+                         </div>
+                         <div class="block">
+                            <label>Email</label>
+                            <div>{{user_profile.email}}</div>
+                         </div>
+                         <div class="block">
+                            <label>Occupation</label>
+                            <div>Student</div>
+                         </div>
+
+                     </form>
+                 </div>
+             </div>
+             <div class="modified_btn">
+                <button class="btn2"><a href="reset-password"><i class="fas fa-pen"></i>Change Password</a></button>
+                <button class="btn1"><a href="update-profile"><i class="fas fa-pen"></i>Update Profile</a></button>
+
+            </div>
+                </div>
+               </div>
+            </div>
+        </div>
+    </section>
+    <script src="{% static 'js/base.js' %}"></script>
+    <script>window.onload=profile()</script>
+</body>
+</html>
+{% endblock content %}

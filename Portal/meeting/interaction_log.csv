@@ -1,0 +1,34 @@
+1745259478,None,No face,O.,0,✅ Sentiment and emotion align.
+1745259491,None,No face,JJJ.,0,✅ Sentiment and emotion align.
+1745312049,None,neutral,ABCSO.,0.4782205,✅ Sentiment and emotion align.
+1745346522,None,neutral,B.,0.5149321,✅ Sentiment and emotion align.
+1745346544,None,neutral,MOFBCO.,0.31571144,✅ Sentiment and emotion align.
+1745346571,None,neutral,GGGM.,0.3037735,✅ Sentiment and emotion align.
+1745422368,None,neutral,ABCX.,0.50304115,✅ Sentiment and emotion align.
+1745574759,None,neutral,ABC.,0.4465953,✅ Sentiment and emotion align.
+1745575601,None,No face,OO.,0,✅ Sentiment and emotion align.
+1745575689,None,neutral,A.,0.44569698,✅ Sentiment and emotion align.
+1745575703,None,neutral,ABC.,0.46414292,✅ Sentiment and emotion align.
+1745575722,None,neutral,AA A.,0.48511103,✅ Sentiment and emotion align.
+1745586057,None,neutral,ABCDMEF.,0.492065,✅ Sentiment and emotion align.
+1745586082,None,neutral,C.,0.51618886,✅ Sentiment and emotion align.
+1745679021,None,neutral,ABOO.,0.49538010358810425,✅ Sentiment and emotion align.
+1745679117,None,surprised,OCFF.,0.5907058715820312,⚠️ Mismatch: Sentiment (NEGATIVE) vs Emotion (surprised)
+1745679247,None,neutral,ABC.,0.6422011256217957,✅ Sentiment and emotion align.
+1746360524,None,neutral,ABC.,0.40592172741889954,✅ Sentiment and emotion align.
+1746361518,None,neutral,BAK.,0.6574203372001648,✅ Sentiment and emotion align.
+1746370922,None,happy,ABCF.,0.31062695384025574,⚠️ Mismatch: Sentiment (NEGATIVE) vs Emotion (happy)
+1746371000,None,neutral,QQ AFA.,0.5646054744720459,✅ Sentiment and emotion align.
+1746371051,None,neutral,C CCCCCCCC.,0.504849374294281,✅ Sentiment and emotion align.
+1746371074,None,neutral,AFCA.,0.489254891872406,✅ Sentiment and emotion align.
+1746371121,None,neutral,QQ.,0.4700603783130646,✅ Sentiment and emotion align.
+1746371244,None,neutral,AAAJJQQ.,0.32749226689338684,✅ Sentiment and emotion align.
+1746371326,None,neutral,JJQQJQQJ.,0.40558525919914246,✅ Sentiment and emotion align.
+1746371471,None,neutral,QQQQF.,0.5729391574859619,✅ Sentiment and emotion align.
+1746371584,None,neutral,ABC.,0.48070091009140015,✅ Sentiment and emotion align.
+1746371601,None,neutral,A A.,0.6977232098579407,✅ Sentiment and emotion align.
+1746371820,None,neutral,GG.,0.3278340995311737,✅ Sentiment and emotion align.
+1746371972,None,surprised,CABC CA.,0.3204423487186432,⚠️ Mismatch: Sentiment (NEGATIVE) vs Emotion (surprised)
+1746372087,None,neutral,AMZMS.,0.5811246633529663,✅ Sentiment and emotion align.
+1746372155,None,sad,ABC F.,0.25575414299964905,✅ Sentiment and emotion align.
+1746372353,None,neutral,MMMMMMMMMLL.,0.6721996665000916,✅ Sentiment and emotion align.

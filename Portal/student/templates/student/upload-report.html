@@ -1,0 +1,97 @@
+{% extends 'student/base_bar.html' %}
+
+{% load static %}
+
+{% block title %}
+    <title>Upload Report</title>
+{% endblock title %}
+
+{% block custom_imports %}
+
+<link rel="stylesheet" href="{% static 'css/courses.css' %}">
+<link rel="stylesheet" href="{% static 'css/Study-content.css' %}">
+<link rel="stylesheet" href="{% static 'css/stud-list.css' %}">
+<link rel="stylesheet" href="{% static 'css/quiz.css' %}">
+<link rel="stylesheet" href="{% static 'css/report_std.css' %}">
+{% endblock custom_imports %}
+
+{% block content %}
+                <!-------------------details--------->
+                <div class="col-10">
+                  <div class="details">
+                   <div class="account_tech">
+                       <h1> Upload Report </h1>
+                       <img src="{% static 'images/teacher//Icons/Group 15547.png' %}" width="35px" height="35px">
+                   </div>
+            <div class="info_tech">
+               <div class="details_tech">
+                    <form>
+                        <div class="block">
+                           <label>Upload grade report</label>
+                           <div> {{report_grades.grade}} </div>
+                        </div>
+                        <div class="block">
+                           <label > deadline </label>
+                           <div>{{report.deadline}}</div>
+                        </div>
+                        <div class="block">
+                           <label>report grades last modified</label>
+                           <div>{{report_grades.last_modified}}</div>
+                        </div>
+                        <div class="block">
+                          {% if  report_grades.report_file %}
+                          <label>report file</label>
+                          <a target="_blank" href="{{report_grades.report_file.url}}" >assignment.pdf</a>
+                          {%endif%}
+                          </div>
+                        <div class="block">
+                           <label>Teacher's notes</label>
+                           <div>{{report_grades.teacher_notes}}</div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            
+
+            
+            {% if  is_deadline_not_over %}
+            <form  action="" method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+          
+              {{ form.report_file }}
+              <div class="block">
+                <label>Student's notes</label>
+                <div>{{ form.student_notes }}</div>
+             </div>
+              
+              <div class="modified_btn">
+              <button class="btn1" type="submit"> Upload Report</button>
+            </div>
+           </form>
+           {%endif%}
+            
+            <div class="modified_btn">
+               <button class="btn2"><a href="">Delete Report</a></button>
+               <button class="btn1"><a href="">Edit Report</a></button>
+           </div>
+               </div>  
+              </div>
+    </div>
+
+               </div>
+            </div>
+        </div>
+    </section>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="{% static 'master/quiz.js' %}"></script>
+    <script src="{% static 'master/quiz_timer.js' %}"></script>
+    <script src="{% static 'master/quiz_confirm_end.js' %}"></script>
+
+
+     
+
+</body>
+</html>
+{% endblock content %}

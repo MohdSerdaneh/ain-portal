@@ -1,0 +1,214 @@
+{% load static %}
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Modern, clean font -->
+     <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300&display=swap" rel="stylesheet">
+
+    <!-- Phosphor icon set (replaces Font Awesome) -->
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+
+    <link rel="icon" href="{% static 'images/Logo_Color.png' %}" type="image/png">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <title>Ain</title>
+
+
+</head>
+<body>
+
+    <!----------- Header ----------->
+    <header>
+        <div class="container">
+            <nav class="navigation" id="activee">
+                <div onclick="nav_active()">
+                    <i class="ph ph-list"></i>
+                </div>
+                <div class="row nav_ull">
+                    <div class="nav_ul" id="menu">
+                        <ul>
+                            <div class="right">
+                                <li><a href="#Main Page">Main Page</a></li>
+                                {% if request.user.is_authenticated %}
+                                    <li><a href="/logout/">Logout</a></li>
+                                {% else %}
+                                    <li><a href="/login/">Login</a></li>
+                                {% endif %}
+                            </div>
+                            <div class="left">
+                                <li><a href="#Who am I">Who am I</a></li>
+                                <li><a href="#FYP Information">FYP Information</a></li>
+                                <li><a href="#Contact Me">Contact Me</a></li>
+                            </div>
+                        </ul>
+                    </div>
+                    <div>
+                        <img src="{% static 'images/Logo_White_Text.png' %}" alt="" width="100px" height="50px">
+                    </div>
+                </div>
+            </nav>
+
+            <div class="Ain">
+                <div>
+                    <img src="{% static 'images/Logo_White_Text.png' %}" alt="" width="300px" height="180px">
+                </div>
+                <div>
+                    <h1>Where Signs Speak and Emotions Teach.</h1>
+                </div>
+                {% if request.user.is_authenticated %}
+                    {% if request.user.is_teacher %}
+                        <button><a href="{% url 'teacher_dashboard' %}">Back to the page</a></button>
+                    {% else %}
+                        <button><a href="{% url 'student_dashboard' %}">Back to the page</a></button>
+                    {% endif %}
+                {% else %}
+                    <div>
+                        <button><a href="register/">Join Now</a></button>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+
+    <!------------------ Section 1 ------------------>
+    <section id="Main Page">
+        <div class="container">
+            <div class="row">
+                <div class="col-4">
+                    <div class="content">
+                        <img src="{% static 'images/ContactMe.png' %}" alt="Contact" width="200px" height="180px">
+                        <button><a href="#Contact Me">Contact Me</a></button>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="content">
+                        <img src="{% static 'images/WhoAmI.png' %}" alt="WhoAmI" width="200px" height="180px">
+                        <button><a href="#Who am I">Who am I?</a></button>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="content">
+                        <img src="{% static 'images/FypInfo.png' %}" alt="FYP" width="200px" height="180px">
+                        <button><a href="#FYP Information">FYP Information</a></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!------------------ Section 2 ------------------>
+    <section id="Who am I" class="who">
+        <div class="container">
+            <div class="row">
+                <div class="col-6">
+                    <div class="image">
+                    <img src="{% static 'images/WhoAmI_Paragraph.png' %}" width="550px" height="550px" alt="About_Me">
+                    </div>
+                </div>
+                <div class="col-6">
+                     <div class="balon">
+                         </div>
+                     <div class="cont">
+
+                    <div class="bg">
+                        <h1>Who am I?</h1>
+                    </div>
+                    <div class="whose">
+                        <p>
+                            Ain is an e-learning portal developed by    Mohammed Abusirdaneh at UNM.<br>
+                            The platform was created to address a significant issue: the lack of accommodation for deaf and mute individuals in educational environments.<br>
+                            Ain provides a solution by recognizing American Sign Language (ASL) and interpreting emotions, enabling teachers to better understand and connect with their students.
+                        </p>
+                        <button class="btn">
+                            <a href="{% static 'Interim/InterimReport_20398888.pdf' %}" target="_blank" rel="noopener noreferrer">Learn More</a>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </section>
+
+    <!------------------ Section 3 ------------------>
+    <section id="FYP Information">
+        <div class="FypInformation">
+            <div class="imagee">
+                <img src="{% static 'images/FypInfo_Faded.png' %}" alt="FYP">
+            </div>
+            <div class="container">
+                <div class="bg">
+                    <h1>Ain Portal</h1>
+                </div>
+                <h2>Final Year Project</h2>
+                <ul>
+                    <li class="list-icon">Supports American Sign Language (ASL) recognition for real-time communication.</li>
+                    <li class="list-icon">Detects emotions and facial expressions to understand student engagement.</li>
+                    <li class="list-icon">Designed specifically for deaf and hard-of-hearing learners.</li>
+                    <li class="list-icon">Bridges the gap between visual language and education.</li>
+                    <li class="list-icon">Uses AI and deep learning for adaptive responses.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!------------------ Footer ------------------>
+    <footer id="Contact Me">
+        <div class="container">
+            <div class="add">
+                <h1>Contact Me</h1>
+            </div>
+            <div class="row contact_us">
+                    <img src="{% static 'images/Uni_Footer.png' %}" alt="UniveristyOfNottinghamLogo" width="450px" height="400px">
+                <div>
+                    <form action="/" method="POST">
+                        {% csrf_token %}
+                        <div class="input2">
+                            <div class="input-t">{{ form.name }}</div>
+                            <div class="input-t">{{ form.email }}</div>
+                        </div>
+                        <div class="input3">{{ form.desc }}</div>
+                        <div class="butt">
+                            <button class="bttn" onclick="contactSent()">
+                                <a type="submit" value="Submit">Send &nbsp;<img src="{% static 'images/SendBtn.png' %}"></a>
+                            </button>
+                            <div id="output"></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="endd">
+                <div class="enddd">
+                    <i class="ph ph-copyright"> Mohammed Abusirdaneh & University Of Nottingham</i>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+
+    <script src="{% static 'js/ajax.js' %}"></script>
+    <script src="{% static 'js/home.js' %}"></script>
+    <script src="{% static 'js/password.js' %}"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <script>
+        function contactSent() {
+            alert('Message Sent Successfully');
+        }
+
+        {% for msg in messages %}
+        swal("Logged out Successfully", "{{ msg }}!", "success");
+        {% endfor %}
+    </script>
+
+</body>
+</html>
+
+{% endblock content %}

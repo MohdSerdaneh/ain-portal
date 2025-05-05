@@ -1,0 +1,71 @@
+{% extends "quiz/base.html" %}
+{% load static %}
+
+{% block title %}
+    <title>Edit Quiz</title>
+{% endblock title %}
+
+{% block custom_imports %}
+{% endblock custom_imports %}
+
+{% block content %}
+<!-- Main Content Area -->
+<div class="col-10">
+    <div class="details">
+
+        <!-- Header Title -->
+        <div class="headofcontent">
+            <img src="{% static 'images/quiz/Group 15547.svg' %}" width="30px" height="30px">
+            <h4 class="hea2">Quiz</h4>
+        </div>
+
+        <div class="ll"><hr></div>
+
+        <!-- Add Question Button -->
+        <div class="question_add">
+            <button
+                type="button"
+                hx-get="{% url 'create_question_form' %}"
+                hx-target="#bookforms"
+                hx-swap="beforeend"
+            >
+                <i class="far fa-plus-circle"></i> Add a question
+            </button>
+        </div>
+
+        <!-- Injects HTMX dynamic form content -->
+        <div id="bookforms" class="py-5 mt-5"></div>
+
+        <!-- Existing Questions -->
+        {% for question in questions %}
+            <div class="lkj">
+                {% include "quiz/partials/quiz_detail.html" %}
+            </div>
+        {% endfor %}
+
+        <!-- Back Button -->
+        <div class="BTT">
+            <button class="btn1">
+                <a href="{% url 'quizzes' %}">
+                    <b><i class="fas fa-angle-double-left"></i> Back to Quizzes</b>
+                </a>
+            </button>
+        </div>
+
+    </div>
+</div>
+</section>
+
+<!-- CSRF Token Setup for HTMX -->
+<script>
+    document.body.addEventListener('htmx:configRequest', (event) => {
+        event.detail.headers['X-CSRFToken'] = '{{ csrf_token }}';
+    })
+</script>
+
+<!-- JS Handlers -->
+<script src="{% static 'js/create_question.js' %}"></script>
+<script src="{% static 'js/base.js' %}"></script>
+<script>window.onload = quiz()</script>
+
+{% endblock %}

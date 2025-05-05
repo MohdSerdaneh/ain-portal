@@ -1,0 +1,78 @@
+{% extends 'teacher/base_bar.html' %}
+{% load static %}
+
+{% block title %}
+    <title> Join the course  </title>
+{% endblock title %}
+
+{% block custom_imports %}
+    <link rel="stylesheet" href="{% static 'css/orders.css' %}">
+    <link rel="stylesheet" href="{% static 'css/ordersteach.css' %}">
+{% endblock custom_imports %}
+
+
+{% block content %}
+
+                <!-------------------details--------->
+        <div class="col-10">
+          <div class="details">
+            <div class="account_tech">
+              <h1> Requests <img src="{% static 'images/icons/Icon_attention_solid.svg' %}" alt=""></a></h1>
+            </div>
+            <!-- <div class="hrt">
+                <hr>
+            </div> -->
+
+<div >
+  {% if all_requests %}
+  {% for request in all_requests %}
+
+  <div class="det-req">
+      <div class="row orders">
+        <div class="row col-8">
+            <div class="orders-img">
+                <img src="{{request.course.image.url}}" alt="">
+            </div>
+            <div class="order-info">
+              <h4> {{request.student}} </h4>
+                <p>{{request.course}} </p>
+            </div>
+        </div>
+        <div class="col-4"> 
+          <button class="orderbtn"> <a onclick="return confirm('Do you want to cancel request?')"
+            href="dismiss/{{request.course}}/{{request.student}}">  <i class="fal fa-times"></i> Cancel Request</a></button>
+            <button class="acceptedbtn"><a onclick="return confirm('Do you want to add a student?')"
+              href="confirm/{{request.course}}/{{request.student}}">  <i class="far fa-comment-alt-plus"></i> Confirmation of course request </a> </button>
+              
+        </div>
+
+    </div>
+      <!-- <div class="hrr">
+          <hr>
+      </div> -->
+
+  </div>
+  {% endfor %}
+  </div>
+  {% else %}
+  <div class="no-orders">
+    <img src="{% static 'images/No_Course.png' %}" alt="" width="400px" height="400px">
+    <p>  No requests currently </p>
+    <button class="btn">
+  <a href="{% url 'index' %}" style="text-decoration: none;" rel="noopener noreferrer">Back to Main</a>
+</button>
+
+ </div>
+{% endif %}
+
+</div>
+</div>
+</section>
+<!--------------------------active_base_bar----------->
+<script src="{% static 'js/base.js' %}"></script>
+<script>window.onload=orders()</script>
+
+
+</body>
+</html>
+{% endblock content %}

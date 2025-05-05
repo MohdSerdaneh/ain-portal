@@ -1,0 +1,71 @@
+{% load tailwind_filters %}
+
+<!-- Wrapper for HTMX swap behavior -->
+<div hx-target="this" hx-swap="outerHTML" class="form_question" id="formm">
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <!-- Question Input Fields -->
+        <div class="det-spc">
+
+            <div class="option_question option-quespe">
+                <label>Question</label>
+                {{ form.question }}
+            </div>
+
+            <div class="option_question">
+                <label>Option A</label>
+                {{ form.option1 }}
+            </div>
+
+            <div class="option_question">
+                <label>Option B</label>
+                {{ form.option2 }}
+            </div>
+
+            <div class="option_question">
+                <label>Option C</label>
+                {{ form.option3 }}
+            </div>
+
+            <div class="option_question">
+                <label>Option D</label>
+                {{ form.option4 }}
+            </div>
+
+        </div>
+
+        <!-- Correct Answer Selection -->
+        <div class="option_question option-quespe">
+            <label>Correct Answer</label>
+            {{ form.correct }}
+        </div>
+
+        <!-- Validation/Error Message -->
+        {% if msg %}
+            <h1 style="color:red">{{ msg }}</h1>
+        {% endif %}
+
+        <!-- Update or Add Buttons -->
+        {% if question %}
+            <!-- Edit Mode -->
+            <div class="question_add">
+                <button type="submit" hx-post="{% url 'update_question' question.id %}">
+                    Update Question
+                </button>
+                <button type="button" hx-get="{% url 'detail_question' question.id %}">
+                    Cancel
+                </button>
+            </div>
+        {% else %}
+            <!-- Add Mode -->
+            <div class="question_add">
+                <button type="submit" hx-post="." class="question_add">
+                    Add a question
+                </button>
+            </div>
+        {% endif %}
+
+    </form>
+</div>

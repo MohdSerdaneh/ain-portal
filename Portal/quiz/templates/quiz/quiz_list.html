@@ -1,0 +1,99 @@
+{% extends 'quiz/base_bar.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Quizzes</title>
+{% endblock title %}
+
+{% block custom_imports %}
+<link rel="stylesheet" href="{% static 'css/profile_teach.css' %}">
+<link rel="stylesheet" href="{% static 'css/profile_teach_view.css' %}">
+<link rel="stylesheet" href="{% static 'css/exams.css' %}">
+{% endblock custom_imports %}
+
+{% block content %}
+<!-- Main Content Column -->
+<div class="col-10">
+
+    <!-- Quiz Page Header -->
+    <div id="exam">
+        <div class="details">
+            <div class="account_tech">
+                <h1>Quizzes</h1>
+                <img src="{% static 'images/quiz/Group 15547.svg' %}" width="30px" height="30px">
+            </div>
+            <div class="hrt"><hr></div>
+
+            <!-- Existing Quiz Cards -->
+            <div class="exams">
+                <div class="row">
+                    {% for quiz in quizzes %}
+                        <div class="col-3">
+                            <div class="exam1">
+                                <h5>{{ quiz.course.name }}</h5>
+                                <img src="{% static 'images/teacher/Icons/Group.png' %}" alt="...">
+                                <p>{{ quiz.name }}</p>
+                                <button class="btn_exam">
+                                    <a href="{% url 'create_question' quiz.pk %}">Open Quiz</a>
+                                </button>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <!-- Divider -->
+                <div class="hrt"><hr></div>
+
+                <!-- New Quiz Button -->
+                <div class="modified_btn open-q">
+                    <button class="btn1" onclick="add_exam()">
+                        <a><i class="far fa-plus-circle"></i> New Quiz</a>
+                    </button>
+                </div>
+            </div>
+
+            <!-- New Quiz Form -->
+            <form method="post" action="" id="new_exam">
+                <h4>New Quiz</h4>
+                {% csrf_token %}
+
+                <div class="create_quiz name-q">
+                    <label>Quiz Name</label>
+                    {{ form.name }}
+                </div>
+
+                <div class="create_quiz">
+                    <label>Quiz Topic</label>
+                    {{ form.course }}
+                </div>
+
+                <div class="create_quiz no_q">
+                    <label>Number of Questions</label>
+                    {{ form.number_of_questions }}
+                </div>
+
+                <div class="create_quiz no_q">
+                    <label>Duration (Mins)</label>
+                    {{ form.time }}
+                </div>
+
+                <!-- Submit/Cancel Buttons -->
+                <div class="modified_btn quiz_btn">
+                    <button type="button" class="btn1 quiz1" onclick="cancel_exam()"><b>Cancel</b></button>
+                    <button type="submit" class="quiz2 white_btn"><b>Start Quiz</b></button>
+                </div>
+            </form>
+
+        </div> <!-- .details -->
+    </div> <!-- #exam -->
+
+</div> <!-- .col-10 -->
+</div> <!-- .row -->
+</div> <!-- .dashboard -->
+</section>
+
+<!-- Scripts -->
+<script src="{% static 'js/base.js' %}"></script>
+<script src="{% static 'js/exam.js' %}"></script>
+<script>window.onload = quiz()</script>
+{% endblock content %}

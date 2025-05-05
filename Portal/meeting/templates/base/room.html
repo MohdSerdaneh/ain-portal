@@ -1,0 +1,243 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ain Portal - Live Room</title>
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/meeting.css' %}">
+    <link rel="stylesheet" href="{% static 'css/chat1.css' %}">
+
+    <style>
+        /* WhatsApp-style chat bubbles */
+        .chat-message {
+            padding: 10px 15px;
+            margin: 10px 8px;
+            border-radius: 18px;
+            max-width: 70%;
+            clear: both;
+            word-wrap: break-word;
+            font-size: 16px;
+        }
+        .student-message {
+            background: #e0e0e0; /* Light gray */
+            text-align: left;
+            float: left;
+        }
+        .teacher-message {
+            background: #cce5ff; /* Light blue */
+            text-align: right;
+            float: right;
+        }
+        #chat-history {
+            transition: 0.3s ease;
+        }
+    </style>
+
+</head>
+
+<body>
+
+<div class="meeting">
+    <div class="row" id="meting_full">
+
+        <!-- Left side: Meeting live area -->
+        <div class="col-9 meting">
+            <div class="meeting_live">
+
+                <section id="room-name-wrapper" style="text-align: center; margin-top: 20px;">
+                    <h2>🧠 Ain Portal - Live ASL + Emotion Session</h2>
+                </section>
+
+                <div class="students" style="margin-top: 30px; font-size: 22px; text-align: center;">
+                    <p><strong>📝 Sentence:</strong> <span id="sentence">Loading...</span></p>
+                    <p><strong>😊 Emotion:</strong> <span id="emotion">Loading...</span></p>
+                    <p><strong>📈 Feedback:</strong> <span id="feedback">Loading...</span></p>
+                </div>
+
+                <div id="chat-history" style="margin-top: 50px; margin-left: auto; margin-right: auto; background: #fff; padding: 20px; border-radius: 10px; width: 80%; height: 300px; overflow-y: auto; display: none;">
+                    <h3>🗨️ Chat History</h3>
+                    <div id="messages"></div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Right side: Chat sidebar -->
+        <div class="col-3" id="all_chat">
+            <div class="meeting_details">
+                <div class="meeting_btn" id="meeting_btns">
+                    <button class="btn2 btn_active" onclick="toggleChatHistory()">
+                        <a href="#">Messages <i class="fas fa-comment-alt-lines"></i></a>
+                    </button>
+                </div>
+
+                <hr>
+                <div id="chat" style="padding: 10px;">
+                 <input type="text" id="chat-input" placeholder="Type your message..." style="width: 80%; padding: 8px; margin-bottom: 10px;">
+                <button onclick="sendChatMessage()" style="padding: 8px 16px; background-color: #c04b3b; color: white; font-weight: bold; border: none; border-radius: 20px; cursor: pointer;">Send</button>
+                </div>
+<div style="margin-top: 20px;">
+    <button onclick="goBackDashboard()" style="padding: 8px 16px; background-color: #c25241; color: white; font-weight: bold; border: none; border-radius: 20px; cursor: pointer;">
+        Back to Dashboard
+    </button>
+</div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Live update scripts -->
+<script src="{% static 'js/chat_animation.js' %}"></script>
+
+<script>
+let lastSentence = '';
+
+function getRoomNameFromURL() {
+    const parts = window.location.pathname.split('/');
+    return parts[2] || 'default_meeting'; // Example: /room/english-class/
+}
+
+const roomName = getRoomNameFromURL();
+
+function updateLiveStatus() {
+    fetch(`/meeting/API/live-status/${roomName}/`)
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('sentence').innerText = data.sentence;
+            document.getElementById('emotion').innerText = data.emotion;
+
+            const feedbackElement = document.getElementById('feedback');
+            feedbackElement.innerText = data.feedback;
+
+            if (data.feedback.includes('✅')) {
+                feedbackElement.style.color = 'green';
+            } else if (data.feedback.includes('⚠️')) {
+                feedbackElement.style.color = 'red';
+            } else {
+                feedbackElement.style.color = 'gray';
+            }
+        })
+        .catch(error => console.error('Error fetching live status:', error));
+}
+
+let lastChatLength = 0;
+
+function updateChatHistory() {
+    fetch(`/meeting/API/chat-history/${roomName}/`)
+        .then(response => response.json())
+        .then(data => {
+            const messagesDiv = document.getElementById('messages');
+
+            if (data.messages.length > lastChatLength) {
+                // Only if new messages are added
+                const newMessages = data.messages.slice(lastChatLength);
+
+                newMessages.forEach(message => {
+                    const div = document.createElement('div');
+
+                    if (message.includes('Student:')) {
+                        div.className = 'chat-message student-message';
+                    } else if (message.includes('Teacher:')) {
+                        div.className = 'chat-message teacher-message';
+                    } else {
+                        div.className = 'chat-message';
+                    }
+
+                    div.innerText = message;
+                    messagesDiv.appendChild(div);
+                    animateNewMessage(div); // Animate only new messages
+                });
+
+                lastChatLength = data.messages.length;
+                messagesDiv.scrollTop = messagesDiv.scrollHeight; // Always scroll bottom
+            }
+        })
+        .catch(error => console.error('Error fetching chat history:', error));
+}
+
+
+function toggleChatHistory() {
+    const chatDiv = document.getElementById('chat-history');
+    if (chatDiv.style.display === "none" || chatDiv.style.display === "") {
+        chatDiv.style.display = "block";
+    } else {
+        chatDiv.style.display = "none";
+    }
+}
+
+setInterval(updateLiveStatus, 3000);
+setInterval(updateChatHistory, 3000);
+updateLiveStatus();
+updateChatHistory();
+function sendChatMessage() {
+    const messageInput = document.getElementById('chat-input');
+    const message = messageInput.value.trim();
+
+    if (message === "") {
+        return; // Don't send empty messages
+    }
+
+    fetch(`/meeting/API/send-message/${roomName}/`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken') // CSRF token for Django
+        },
+        body: JSON.stringify({ "message": message })
+    })
+    .then(response => {
+        if (response.ok) {
+            messageInput.value = ""; // Clear input box
+            updateChatHistory(); // Refresh chat
+        } else {
+            console.error('Failed to send message');
+        }
+    })
+    .catch(error => console.error('Error sending chat message:', error));
+}
+
+// CSRF token helper (Django security)
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+// Allow sending message with Enter key
+document.addEventListener('DOMContentLoaded', function() {
+    const input = document.getElementById('chat-input');
+    input.addEventListener('keypress', function(event) {
+        if (event.key === 'Enter') {
+            event.preventDefault(); // prevent default newline
+            sendChatMessage();
+        }
+    });
+});
+
+    return cookieValue;
+}
+function goBackDashboard() {
+    const userType = "{{ request.user.profile.role|default_if_none:'student' }}".toLowerCase();
+
+    if (userType === "teacher") {
+        window.location.href = "/teacher/dashboard/";
+    } else {
+        window.location.href = "/student/dashboard/";
+    }
+}
+
+</script>
+
+</body>
+</html>

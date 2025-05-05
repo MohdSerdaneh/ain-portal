@@ -1,0 +1,78 @@
+{% extends 'accounts/base.html' %}
+{% load static %}
+
+{% block title %}Login{% endblock title %}
+
+{% block content %}
+
+
+<!-- Login Page CSS and Fonts -->
+ <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<link rel="stylesheet" href="{% static 'css/sign-up.css' %}">
+
+<!-- Navbar -->
+<nav class="navigation">
+  <div class="row nav_ull">
+    <div class="nav_ul">
+      <ul>
+        <div class="right">
+          <img src="{% static 'images/Logo_White_Text.png' %}" alt="" width="100px" height="50px">
+          <li><a href="{% url 'index' %}">Main Page</a></li>
+        </div>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Login Form Block -->
+<div class="sign-up">
+  <div>
+      <div style="padding-right: 120px;">
+    <img src="{% static 'images/LoginRegister.png' %}" alt="sign-up">
+  </div>
+
+  <form method="post">
+    {% csrf_token %}
+
+    <div class="form_input">
+      <i class="ph ph-user-circle"></i>
+      {{ form.username }}
+    </div>
+
+    <div class="form_input">
+      <i class="ph ph-lock-key"></i>
+      {{ form.password }}
+      <i class="password-toggle ph ph-eye-slash" id="password-toggle" onclick="password_Toggle()"></i>
+    </div>
+
+    <!-- reCAPTCHA -->
+    <div class="row">
+      <script src='https://www.google.com/recaptcha/api.js'></script>
+      <div class="g-recaptcha" data-sitekey="6LfszWMeAAAAACcuYUil6U-JU8T9knetAhG9Amtm"></div>
+    </div>
+
+    <!-- Submit + Register Buttons -->
+    <div>
+        <button class="btn1"><a type="submit" value="Log In"  onclick="success_register()">Login </a></button>
+            <button class="btn2"><a href="/register">Register</a></button>
+    </div>
+  </form>
+</div>
+
+<!-- Scripts -->
+<script src="{% static 'js/password.js' %}"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<script>
+  {% for msg in messages %}
+    {% if request.session.flag %}
+      swal("Account registered successfully", "{{ msg }}!", "success");
+    {% else %}
+      swal("Error!", "{{ msg }}!", "warning");
+    {% endif %}
+  {% endfor %}
+</script>
+
+{% endblock content %}

@@ -1,0 +1,118 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Fonts & Icons -->
+    <link rel="stylesheet" href="jquery-ui.min.css">
+     <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300&display=swap" rel="stylesheet">
+    <script defer src="/your-path-to-fontawesome/js/all.js"></script>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/sign-up.css' %}">
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+
+    <!-- Favicon -->
+    <link rel="icon" href="{% static 'images/Logo_Color.png' %}" type="image/icon type">
+
+    <!-- Custom blocks for dynamic additions -->
+    {% block custom_imports %}{% endblock custom_imports %}
+    {% block title %}{% endblock title %}
+</head>
+
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navigation">
+        <div class="row nav_ull">
+            <div class="nav_ul">
+                <ul>
+                    <div class="right">
+                        <img src="{% static 'images/Logo_White_Text.png' %}" alt="" width="100px" height="50px">
+                        <li><a href="{% url 'index' %}">Main Page</a></li>
+                    </div>
+                </ul>
+            </div>
+            <div>
+                <button class="btn">
+                    <a href="{% url 'logout' %}">Logout <i class="fas fa-arrow-alt-square-right"></i></a>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Section -->
+    <section>
+        <div class="dashboard">
+            <div class="row">
+
+                <!-- Sidebar -->
+                <div class="col-2">
+                    <div class="profile">
+                        <div class="pofile_pic">
+                            <img class="MPC" src="{{ user.profile.teacher.avatar.url }}" alt="">
+                            {% if user_profile.full_name %}
+                                <p>{{ user_profile.full_name }}</p>
+                            {% else %}
+                                <p>{{ user_profile.user }}</p>
+                            {% endif %}
+                            <p class="student">Teacher</p>
+                        </div>
+
+                        <!-- Sidebar Navigation -->
+                        <div class="profile_features" id="profile_features">
+                            <div class="profile_feature" onmouseover="hoverr1()" onmouseout="without_hover1()" onclick="teacher_dash()">
+                                <a href="{% url 'teacher_dashboard' %}">
+                                    Main Page
+                                    <img id="image1" src="{% static 'images/icons/dashboard/main page.svg' %}" width="30px" height="20px">
+                                </a>
+                            </div>
+
+                            <div class="profile_feature" onclick="profile()">
+                                <a href="/teacher/profile-info">
+                                    Personal File
+                                    <i class="fas fa-user-circle"></i>
+                                </a>
+                            </div>
+
+                            <div class="profile_feature" onmouseover="hoverr3()" onmouseout="without_hover3()" onclick="coursesi()">
+                                <a href="{% url 'courses' %}">
+                                    Courses
+                                    <img id="image3" src="{% static 'images/icons/dashboard/Group 186.svg' %}" width="30px" height="20px">
+                                </a>
+                            </div>
+
+                            <div class="profile_feature" onmouseover="hoverr5()" onmouseout="without_hover5()">
+                                <a href="{% url 'quizzes' %}">
+                                    Quizzes
+                                    <img id="image5" src="{% static 'images/icons/dashboard/exams.svg' %}" width="30px" height="20px">
+                                </a>
+                            </div>
+
+                            <div class="profile_feature" onmouseover="hoverr6()" onmouseout="without_hover6()" onclick="orders()">
+                                <a href="{% url 'join_course_list' %}">
+                                    Requests
+                                    <i class="fas fa-exclamation-circle"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Page-Specific Content -->
+                <div class="col-10">
+                    {% block content %}
+                    {% endblock content %}
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>

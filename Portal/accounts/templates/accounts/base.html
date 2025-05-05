@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Character encoding -->
+    <meta charset="UTF-8" />
+
+    <!-- Ensures compatibility with older versions of Internet Explorer -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- Responsive design for mobile and desktop -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Title block allows child templates to override the page title -->
+    <title>{% block title %} Ain {% endblock title %}</title>
+  </head>
+
+  <body>
+
+    <!-- Content block where child templates inject their body content -->
+    {% block content %}
+    {% endblock content %}
+
+  </body>
+</html>

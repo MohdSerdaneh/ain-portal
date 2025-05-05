@@ -1,0 +1,50 @@
+{% extends 'quiz/base.html' %}
+{% load static %}
+
+{% block custom_imports %}
+    <link rel="stylesheet" href="{% static 'css/profile_teach.css' %}">
+    <link rel="stylesheet" href="{% static 'css/profile_teach_view.css' %}">
+    <link rel="stylesheet" href="{% static 'css/exams.css' %}">
+{% endblock custom_imports %}
+
+{% block content %}
+<form method="post" action="" id="new_exam">
+    <h4>New Quiz</h4>
+
+    {% csrf_token %}
+
+    <!-- Quiz Name -->
+    <div class="create_quiz name-q">
+        <label>Quiz Name</label>
+        {{ form.name }}
+    </div>
+
+    <!-- Course Selection -->
+    <div class="create_quiz" id="list">
+        <label>Quiz Topic</label>
+        {{ form.course }}
+    </div>
+
+    <!-- Number of Questions -->
+    <div class="create_quiz no_q">
+        <label>Number of Questions</label>
+        {{ form.number_of_questions }}
+    </div>
+
+    <!-- Duration -->
+    <div class="create_quiz no_q">
+        <label>Duration (mins)</label>
+        {{ form.time }}
+    </div>
+
+    <!-- Buttons -->
+    <div class="modified_btn quiz_btn">
+        <button class="btn1 quiz1">
+            <a href="{% url 'quizzes' %}"><b>Cancel</b></a>
+        </button>
+        <button type="submit" class="quiz2 white_btn">
+            <a><b>Start Quiz</b></a>
+        </button>
+    </div>
+</form>
+{% endblock %}

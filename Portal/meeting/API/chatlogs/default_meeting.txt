@@ -1,0 +1,8 @@
+[2025-04-27 01:42:20] Teacher: Hi (neutral)
+[2025-04-27 01:42:33] Teacher: Im working today (neutral)
+[2025-04-27 01:46:41] Teacher: im ready for office
+[2025-04-27 01:46:46] Teacher: come
+
+[2025-05-04 23:14:08] Teacher: Hello everyone
+[2025-05-04 23:20:07] Teacher: come
+[2025-05-04 23:23:23] Teacher: i will enter my office now

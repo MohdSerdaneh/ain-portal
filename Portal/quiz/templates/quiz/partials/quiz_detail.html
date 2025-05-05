@@ -1,0 +1,52 @@
+<div hx-target="this" class="container_quiz">
+
+    <!-- Question Header -->
+    <div class="row question_name">
+        <h1>{{ question.question }}</h1>
+        <i class="fas fa-arrow-alt-square-left"></i>
+    </div>
+
+    <!-- Options Display -->
+    <div class="question_choose">
+        <p>{{ question.option1 }} <span></span></p>
+        <div class="cho-hr"><hr></div>
+
+        <p>{{ question.option2 }} <span></span></p>
+        <div class="cho-hr"><hr></div>
+
+        <p>{{ question.option3 }} <span></span></p>
+        <div class="cho-hr"><hr></div>
+
+        <p>{{ question.option4 }} <span></span></p>
+        <div class="cho-hr"><hr></div>
+    </div>
+
+    <!-- Answer Highlight -->
+    <p class="correct_answr">
+        Correct Answer: <span>{{ question.correct }}</span>
+    </p>
+
+    <!-- Edit / Delete Buttons -->
+    <div class="edit-quee">
+
+        <!-- Update: Replace current card with update form -->
+        <button
+            hx-get="{% url 'update_question' question.id %}"
+            hx-swap="outerHTML"
+            class="btn_update_question"
+        >
+            Update Question <i class="fas fa-pen"></i>
+        </button>
+
+        <!-- Delete: Replace card with nothing (fade out effect) -->
+        <button
+            hx-post="{% url 'delete_question' question.id %}"
+            hx-swap="outerHTML swap:1s"
+            class="btn_delete_question"
+        >
+            Delete Question <i class="fal fa-times"></i>
+        </button>
+    </div>
+    <br>
+
+</div>

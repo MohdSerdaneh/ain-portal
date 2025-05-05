@@ -1,0 +1,105 @@
+{% extends 'accounts/base.html' %}
+{% load static %}
+
+{% block title %}Register Account{% endblock title %}
+
+{% block content %}
+
+<!-- Page-specific styles/scripts -->
+ <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<link rel="stylesheet" href="{% static 'css/sign-up.css' %}">
+<link rel="icon" href="{% static 'images/Logo_Color.png' %}" type="image/png">
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<!-- Navbar -->
+<nav class="navigation">
+  <div class="row nav_ull">
+    <div class="nav_ul">
+      <ul>
+        <div class="right">
+          <img src="{% static 'images/Logo_White_Text.png' %}" alt="" width="100px" height="50px">
+          <li><a href="{% url 'index' %}">Main Page</a></li>
+        </div>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Registration Form -->
+<div class="sign-up">
+    <div style="padding-right: 110px;">
+    <img src="{% static 'images/LoginRegister.png' %}" alt="sign-up">
+  </div>
+
+  <form method="post">
+    {% csrf_token %}
+
+    <div class="form_input">
+      <i class="ph ph-user-circle"></i>
+      {{ form.username }}
+    </div>
+
+    <div class="form_input">
+      <i class="ph ph-envelope-simple"></i>
+      {{ form.email }}
+    </div>
+
+    <div class="form_input">
+      <i class="ph ph-lock-key"></i>
+      {{ form.password1 }}
+      <i class="password-toggle ph ph-eye-slash" id="password-toggle" onclick="password_Toggle()"></i>
+    </div>
+
+    <div class="form_input">
+      <i class="ph ph-lock-key"></i>
+      {{ form.password2 }}
+      <i class="password-toggle ph ph-eye-slash" id="password-toggle2" onclick="password_Toggle2()"></i>
+    </div>
+
+    <!-- Role Selection -->
+    <div class="form_input">
+      <div class="radio-item">
+        <input type="radio" name="role" id="student" value="student" checked>
+        <label for="student">Student</label>
+      </div>
+      <div class="radio-item">
+        <input type="radio" name="role" id="teacher" value="teacher">
+        <label for="teacher">Teacher</label>
+      </div>
+    </div>
+
+    <!-- reCAPTCHA -->
+    <div class="row">
+      <script src='https://www.google.com/recaptcha/api.js'></script>
+      <div class="g-recaptcha" data-sitekey="6LfszWMeAAAAACcuYUil6U-JU8T9knetAhG9Amtm"></div>
+    </div>
+
+    <!-- Error placeholder (optional future use) -->
+    <div class="row">
+      <span style="color: rgb(229, 36, 52)"></span>
+    </div>
+
+    <!-- Submit / Login -->
+    <div>
+         <button class="btn1"><a type="submit" value="Register" onclick="success_enter()">Register </a></button>
+      <button class="btn2"><a href="/login">Login</a></button>
+    </div>
+  </form>
+</div>
+
+<!-- JS -->
+<script src="{% static 'js/password.js' %}"></script>
+
+<script>
+  {% for msg in messages %}
+    {% if request.session.flag %}
+      swal("Account successfully registered", "{{ msg }}!", "success");
+    {% else %}
+      swal("Error", "{{ msg }}!", "warning");
+    {% endif %}
+  {% endfor %}
+</script>
+
+{% endblock content %}
